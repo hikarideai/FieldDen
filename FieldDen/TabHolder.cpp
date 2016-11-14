@@ -50,8 +50,8 @@ void TabHolder::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void TabHolder::add(Tab* tab) {
     if (ord_ == ORDER_HORIZONTALY)
-        size_ = sf::Vector2f(size_.x + tab->size().x+4, std::max(size_.y, tab->size().y+4));
+        size_ = sf::Vector2f(size_.x + tab->size().x+2, std::max(size_.y, tab->size().y+2));
     else
-        size_ = sf::Vector2f(std::max(size_.x, tab->size().x+4), size_.y + tab->size().y+4);
+        size_ = sf::Vector2f(std::max(size_.x, tab->size().x+2), size_.y + tab->size().y+2);
     strip_.push_back(tab);
 }

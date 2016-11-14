@@ -2,6 +2,9 @@
 #include "Widget.hpp"
 #include <iostream>
 
+#define TEXT_SIZE 12
+#define ALPHABET "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()[]{}0123456789!@#$%^&*/-+,.?|"
+
 class Tab : public Widget {
 public:
     Tab()
@@ -11,7 +14,7 @@ public:
         active_ = false;
         default_ = sf::Color::Transparent;
     }
-    Tab(std::string path, sf::Vector2f size = sf::Vector2f(0, 0), sf::Vector2f pos = sf::Vector2f(0, 0));
+    Tab(std::string path, int size = 32, sf::Vector2f pos = sf::Vector2f(0, 0));
 
     //From Widget
     sf::Vector2f size() {
@@ -22,7 +25,7 @@ public:
     }
     void setPos(sf::Vector2f pos) {
         body_.setPosition(pos);
-        glyph_.setPosition(pos.x + body_.getSize().x/2, pos.y + body_.getSize().y/2);
+        label_.setPosition(pos.x + (body_.getSize().x-label_.getLocalBounds().width)/2, pos.y + body_.getSize().y/4);
     }
     Widget* clone() const {
         return new Tab(*this);
@@ -45,8 +48,7 @@ public:
     void onDeactivation(std::function<void()> f) { dact = f; }
 
 private:
-    sf::Texture image_;
-    sf::Sprite glyph_;
+    sf::Text label_;
     sf::RectangleShape body_;
     sf::Color default_;
 
@@ -55,7 +57,7 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (!visible_) return;
         target.draw(body_);
-        target.draw(glyph_);
+        target.draw(label_);
     }
 
     //Events

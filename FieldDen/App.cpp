@@ -54,6 +54,7 @@ void App::plot() {
 
 	x.calc();
 	y.calc();
+	std::cout << "Vertex thread> Computing plot\n";
 	if (x.failed())
 	{
 		std::cout << "Vertex thread> x equation error: " << x.what() << "\n";
@@ -123,11 +124,12 @@ void App::stopPlot()
 }
 
 void App::initGeneralTab() {
-    general.init(sf::Vector2f(48, 8));
+    general.init(sf::Vector2f(64, 8));
     
     //Iterations number slider
-    iterations = new Slider(Vector2d(0, 20000), sf::Vector2f(0, 0), 200);
+    iterations = new Slider(Vector2d(0, 1000000), sf::Vector2f(0, 0), 200);
     iterations->setName("Iterations");
+	iterations->setValue(100000);
     iterations->ifValueChanged([&]()
     {
 		stopPlot(); startPlot();
@@ -136,6 +138,7 @@ void App::initGeneralTab() {
 	//Transparency slider
 	transparency_value = new Slider(Vector2d(0, 255), sf::Vector2f(0, iterations->pos().y + iterations->size().y + 4), 200);
 	transparency_value->setName("Transparency");
+	transparency_value->setValue(255);
 	transparency_value->ifValueChanged([&]()
 	{
 		graph->setTransparency(transparency_value->getValue());
@@ -148,6 +151,7 @@ void App::initGeneralTab() {
 	//Zoom slider
 	zoom_value = new Slider(Vector2d(0, 10), sf::Vector2f(0, transparency_value->pos().y + transparency_value->size().y + 4), 200);
 	zoom_value->setName("Zoom");
+	zoom_value->setValue(1);
 	zoom_value->ifValueChanged([&]()
 	{
 		graph->setZoom(zoom_value->getValue());
@@ -170,10 +174,10 @@ void App::initEquationsTab() {
 	x.ignore({ "x", "y", "t" });
 	y.ignore({ "x", "y", "t" });
 
-    equations.init(sf::Vector2f(48, 8));
+    equations.init(sf::Vector2f(64, 8));
 
 	//t value slider
-	t_value = new Slider(Vector2d(0, 10), sf::Vector2f(0, 0), 200);
+	t_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, 0), 200);
 	t_value->setName("t");
 	t_value->ifValueChanged([&]()
 	{
@@ -187,6 +191,7 @@ void App::initEquationsTab() {
 	//dt value slider
 	dt_value = new Slider(Vector2d(0, 2), sf::Vector2f(0, t_value->pos().y + t_value->size().y + 4), 200);
 	dt_value->setName("dt");
+	dt_value->setValue(0.005);
 	dt_value->ifValueChanged([&]()
 	{
 		stopPlot(); startPlot();
@@ -242,7 +247,7 @@ void App::initEquationsTab() {
 }
 
 void App::initRibbon() {
-    tab_gen = new Tab("settings24.png", sf::Vector2f(32, 32));
+    tab_gen = new Tab("General", 24, sf::Vector2f(32, 32));
     tab_gen->onActivation([&]() {
         general.show();
         return false;
@@ -253,7 +258,7 @@ void App::initRibbon() {
     });
     
     
-    tab_eq = new Tab("rules24.png", sf::Vector2f(32, 32));
+    tab_eq = new Tab("Output", 24, sf::Vector2f(32, 32));
     tab_eq->onActivation([&]() {
         equations.show();
         return false;

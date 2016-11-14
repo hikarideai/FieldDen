@@ -1,23 +1,22 @@
 #include "Tab.hpp"
+#include "Globals.hpp"
 
-Tab::Tab(std::string path, sf::Vector2f size, sf::Vector2f pos) {
-    if (!image_.loadFromFile(path)) {
-        std::cout << "ERROR:\tUnable to load button's glyph from " << path << "\n";
-    }
+Tab::Tab(std::string title, int size, sf::Vector2f pos) {	
+	label_.setCharacterSize(TEXT_SIZE);
+	label_.setFont(std::ref(g_font));
+	label_.setColor(sf::Color::Black);
+	label_.setString(title);
 
-    if (size == sf::Vector2f(0, 0)) {
-        size.x = (float)image_.getSize().x;
-        size.y = (float)image_.getSize().y;
-    }
+	label_.setString(ALPHABET);
+	sf::FloatRect labelRect = label_.getGlobalBounds();
+	label_.setOrigin(labelRect.left, labelRect.top);
+	label_.setString(title);
 
     body_.setPosition(pos);
     body_.setOrigin(0, 0);
     body_.setFillColor(sf::Color::Transparent);
-    body_.setSize(size);
-
-    glyph_.setTexture(image_);
-    glyph_.setOrigin((float)image_.getSize().x / 2, (float)image_.getSize().y / 2);
-    glyph_.setPosition(pos.x + size.x / 2, pos.y + size.y / 2);
+    body_.setSize(sf::Vector2f(label_.getLocalBounds().left + label_.getLocalBounds().width+8, size));
+	label_.setPosition(sf::Vector2f(pos.x + body_.getSize().x / 2, pos.y + body_.getSize().y/2));
 
     visible_ = true;
     hover_ = false;
