@@ -1,0 +1,7 @@
+{
+    //General
+    "Font" : "data/fonts/UbuntuMono.ttf",
+    "GeneralTabGFX" : "data/gfx/general.png",
+    "EquationsTabGFX" : "data/gfx/eqations.png",
+    "InfoTabGFX" : "data/gfx/info.png"
+}

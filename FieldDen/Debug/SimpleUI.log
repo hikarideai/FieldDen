@@ -1,0 +1,86 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (FieldDen E.vcxproj, FieldDen.vcxproj, TextArea.vcxproj, U2DP.vcxproj, Un2DP.vcxproj, USP.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  App.cpp
+e:\simpleui\simpleui\Plane.hpp(27): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
+e:\simpleui\simpleui\Plane.hpp(34): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+App.cpp(12): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+App.cpp(19): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+App.cpp(86): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+App.cpp(141): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
+App.cpp(145): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
+App.cpp(273): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+App.cpp(283): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Пропуск... (изменения не обнаружены)
+  main.cpp
+  ValueTable.cpp
+  TextBox.cpp
+  Text.cpp
+  TabHolder.cpp
+  Tab.cpp
+  Slider.cpp
+  Plane.cpp
+  Panel.cpp
+  ImageButton.cpp
+  Globals.cpp
+  Equation.cpp
+  Button.cpp
+LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
+  Создание кода
+e:\simpleui\simpleui\slider.cpp(179): warning C4715: Slider::check: значение возвращается не при всех путях выполнения
+  316 of 5165 functions ( 6.1%) were compiled, the rest were copied from previous compilation.
+    285 functions were new in current compilation
+    604 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+sfml-graphics-s-d.lib(BlendMode.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(BlendMode.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Color.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Color.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Font.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Font.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(GLCheck.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(GLCheck.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(GLExtensions.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(GLExtensions.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Image.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Image.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(ImageLoader.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(ImageLoader.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(RenderStates.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(RenderStates.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(RenderTarget.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(RenderTarget.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(RenderWindow.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(RenderWindow.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Shader.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Shader.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Texture.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Texture.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(TextureSaver.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(TextureSaver.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Transform.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Transform.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Transformable.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Transformable.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(View.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(View.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Vertex.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Vertex.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(GLLoader.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(GLLoader.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Shape.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Shape.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(RectangleShape.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(RectangleShape.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Sprite.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Sprite.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(Text.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Text.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-graphics-s-d.lib(VertexArray.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(VertexArray.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(Context.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(Context.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(GlContext.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(GlContext.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(GlResource.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(GlResource.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(Joystick.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(Joystick.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(JoystickManager.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(JoystickManager.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(Mouse.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(Mouse.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(SensorManager.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(SensorManager.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(VideoMode.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(VideoMode.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(Window.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(Window.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(WindowImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(WindowImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(WglContext.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(WglContext.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(WglExtensions.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(WglExtensions.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(InputImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(InputImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(JoystickImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(JoystickImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(SensorImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(SensorImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(VideoModeImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(VideoModeImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-window-s-d.lib(WindowImplWin32.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-window-s-d.lib(WindowImplWin32.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Clock.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Clock.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Err.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Err.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Lock.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Lock.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Mutex.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Mutex.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Sleep.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Sleep.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(String.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(String.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(ThreadLocal.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(ThreadLocal.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(Time.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(Time.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(ClockImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(ClockImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(MutexImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(MutexImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(SleepImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(SleepImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+sfml-system-s-d.lib(ThreadLocalImpl.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-system-s-d.lib(ThreadLocalImpl.cpp.obj)" или на "E:\SimpleUI\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+  SimpleUI.vcxproj -> E:\SimpleUI\Debug\FieldDen 0.65.exe
+  SimpleUI.vcxproj -> E:\SimpleUI\Debug\FieldDen 0.65.pdb (Partial PDB)

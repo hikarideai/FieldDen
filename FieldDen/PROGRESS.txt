@@ -1,0 +1,34 @@
+11/14/2016
++ Zoom
+> X, Y Labels
++ Area navigation
+> Mouse control
+> Screenshot blending bug fix
+> Equation bug fixes
+> Color choose tab
++ Reserved variables should be ignored in ValTable
+
+11/13/2016
++ Transparency implemented
++ Screenshot ability[transparency blending issues]
+* Color interpolation bug fixed
+* Coordinates concept normalized
+* Singularity border bug fixed
+
+11/09/2016
++ Updating the plot when slider's value is changed
+
+11/06/2016
++ Heap corruption on very big number of iterations when plot reaches end of screen.
+
+
+10/21/2016
+* Fixed slider bar behaviour
+* Discovered a fatal bug 001:
+	Crashes the program
+	Appears on very high iterations number
+	May be caused by video driver and OpenGL 
+
+10/17/2016
++ Added lock_guards for thread safety
+* Fixed equation's input area fatal error
