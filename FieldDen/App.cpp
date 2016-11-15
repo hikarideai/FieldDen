@@ -76,7 +76,7 @@ void App::plot() {
 	long long start_time = clock();
 
     double fx, fy;
-	auto end = static_cast<long>(iterations->getValue());
+	auto end = static_cast<long>(std::pow(10, iterations->getValue()));
     for (auto i = 0; i < end; i++) {
 		if (stop_plotting) {
 			stop_plotting = false;
@@ -132,9 +132,9 @@ void App::initGeneralTab() {
     general.init(sf::Vector2f(64, 8));
     
     //Iterations number slider
-    iterations = new Slider(Vector2d(0, 1000000), sf::Vector2f(0, 0), 200);
-    iterations->setName("Iterations");
-	iterations->setValue(100000);
+    iterations = new Slider(Vector2d(0, 9), sf::Vector2f(0, 0), 200);
+    iterations->setName("Iterations(log)");
+	iterations->setValue(5);
     iterations->ifValueChanged([&]()
     {
 		stopPlot(); startPlot();
@@ -155,15 +155,15 @@ void App::initGeneralTab() {
 
 	//Zoom slider
 	zoom_value = new Slider(Vector2d(0, 10), sf::Vector2f(0, transparency_value->pos().y + transparency_value->size().y + 4), 200);
-	zoom_value->setName("Zoom");
+	zoom_value->setName("Zoom(log)");
 	zoom_value->setValue(1);
 	zoom_value->ifValueChanged([&]()
 	{
-		graph->setZoom(zoom_value->getValue());
+		graph->setZoom(std::pow(10, zoom_value->getValue())/10);
 	});
 	zoom_value->ifSliderMoved([&]()
 	{
-		graph->setZoom(zoom_value->getValue());
+		graph->setZoom(std::pow(10, zoom_value->getValue()) / 10);
 	});
 	
 
@@ -190,20 +190,12 @@ void App::initEquationsTab() {
 	{
 		stopPlot(); startPlot();
 	});
-	t_value->ifSliderMoved([&]()
-	{
-		stopPlot(); startPlot();
-	});
 
 	//dt value slider
-	dt_value = new Slider(Vector2d(0, 2), sf::Vector2f(0, t_value->pos().y + t_value->size().y + 4), 200);
+	dt_value = new Slider(Vector2d(0, 1), sf::Vector2f(0, t_value->pos().y + t_value->size().y + 4), 200);
 	dt_value->setName("dt");
 	dt_value->setValue(0.005);
 	dt_value->ifValueChanged([&]()
-	{
-		stopPlot(); startPlot();
-	});
-	dt_value->ifSliderMoved([&]()
 	{
 		stopPlot(); startPlot();
 	});
@@ -330,7 +322,7 @@ void App::initRibbon() {
 void App::initialize() {
     settings.antialiasingLevel = 0;
 
-    window.create(sf::VideoMode(width, height), "Universal 2D Plotter", sf::Style::Default, settings);
+    window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
 	window.setFramerateLimit(60);
 
     initGeneralTab();

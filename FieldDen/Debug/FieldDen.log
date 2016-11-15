@@ -7,13 +7,13 @@ App.cpp(19): warning C4244: аргумент: преобразование "doub
 App.cpp(92): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
 App.cpp(149): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
 App.cpp(153): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
-App.cpp(333): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
-App.cpp(343): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+App.cpp(325): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+App.cpp(335): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
 LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
   Создание кода
-  0 of 5225 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+  118 of 5112 functions ( 2.3%) were compiled, the rest were copied from previous compilation.
+    114 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 sfml-graphics-s-d.lib(BlendMode.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(BlendMode.cpp.obj)" или на "E:\FieldDen\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 sfml-graphics-s-d.lib(Color.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Color.cpp.obj)" или на "E:\FieldDen\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
