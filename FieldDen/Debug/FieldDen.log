@@ -4,16 +4,16 @@ e:\fieldden\fieldden\fieldden\Plane.hpp(27): warning C4244: аргумент: п
 e:\fieldden\fieldden\fieldden\Plane.hpp(34): warning C4244: return: преобразование "double" в "int", возможна потеря данных
 App.cpp(12): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
 App.cpp(19): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-App.cpp(87): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-App.cpp(144): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
-App.cpp(148): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
-App.cpp(279): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
-App.cpp(289): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+App.cpp(92): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+App.cpp(149): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
+App.cpp(153): warning C4244: аргумент: преобразование "double" в "sf::Uint8", возможна потеря данных
+App.cpp(333): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+App.cpp(343): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
 LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
   Создание кода
-  2 of 5111 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  0 of 5225 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 sfml-graphics-s-d.lib(BlendMode.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(BlendMode.cpp.obj)" или на "E:\FieldDen\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 sfml-graphics-s-d.lib(Color.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Color.cpp.obj)" или на "E:\FieldDen\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных

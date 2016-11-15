@@ -70,11 +70,13 @@ private:
 
     //General tab
     Panel general;
-    Slider *iterations, *t_value, *dt_value;
+	Slider *iterations;
 	Slider *transparency_value, *zoom_value;
     
     //Equations
     Panel equations;
+	Text *param_lab, *time_lab, *eqat_lab;
+	Slider *t_value, *dt_value, *x_value, *y_value;
     TextBox *x_eq, *y_eq;
     ValueTable *x_eq_vars, *y_eq_vars;
 
@@ -86,6 +88,7 @@ private:
     ValueTable test;
 
 	std::mutex safe_calc;
+	double x0, y0;
 	Equation x, y;
     
 	long iteraions;

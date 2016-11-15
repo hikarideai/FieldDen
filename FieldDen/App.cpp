@@ -51,6 +51,11 @@ void App::plot() {
     dt = dt_value->getValue();
     x.setVar("t", t_value->getValue());
     y.setVar("t", t_value->getValue());
+	x.setVar("x", x_value->getValue());
+	y.setVar("y", y_value->getValue());
+	y.setVar("x", x_value->getValue());
+	x.setVar("y", y_value->getValue());
+
 
 	x.calc();
 	y.calc();
@@ -176,8 +181,10 @@ void App::initEquationsTab() {
 
     equations.init(sf::Vector2f(64, 8));
 
+	time_lab = new Text(g_font, "Time", 16);
+
 	//t value slider
-	t_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, 0), 200);
+	t_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, time_lab->pos().y+time_lab->size().y+12), 200);
 	t_value->setName("t");
 	t_value->ifValueChanged([&]()
 	{
@@ -201,26 +208,68 @@ void App::initEquationsTab() {
 		stopPlot(); startPlot();
 	});
 
-	x_eq = new TextBox(g_font, sf::Vector2f(0, dt_value->pos().y + dt_value->size().y+8));
+	eqat_lab = new Text(g_font, "Equations", 16, sf::Vector2f(0, dt_value->pos().y + dt_value->size().y + 16));
+	
+	//Xinit
+	x_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, eqat_lab->pos().y + eqat_lab->size().y + 8), 200);
+	x_value->setName("x");
+	x_value->setValue(0);
+	x_value->ifValueChanged([&]()
+	{
+		stopPlot();
+		startPlot();
+	});
+
+	//X expression
+	x_eq = new TextBox(g_font, sf::Vector2f(0, x_value->pos().y + x_value->size().y + 6));
 	x_eq->ifTextChanged([&]()
 	{
 		stopPlot();
 		x.parse(x_eq->content());
 		x_eq_vars->genFrom(getXVals());
+		if (!x_eq_vars->get().size() && !y_eq_vars->get().size())
+		{
+			param_lab->hide();
+		} else
+		{
+			param_lab->show();
+		}
 		startPlot();
 	});
 
-	y_eq = new TextBox(g_font, sf::Vector2f(0, x_eq->pos().y + x_eq->size().y + 8));
+	//YInit
+	y_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, x_eq->pos().y + x_eq->size().y + 8), 200);
+	y_value->setName("y");
+	y_value->setValue(0);
+	y_value->ifValueChanged([&]()
+	{
+		stopPlot();
+		startPlot();
+	});
+	
+	//Y expression
+	y_eq = new TextBox(g_font, sf::Vector2f(0, y_value->pos().y + y_value->size().y + 6));
 	y_eq->ifTextChanged([&]()
 	{
 		stopPlot();
 		y.parse(y_eq->content());
 		y_eq_vars->genFrom(getYVals());
+		if (!x_eq_vars->get().size() && !y_eq_vars->get().size())
+		{
+			param_lab->hide();
+		}
+		else
+		{
+			param_lab->show();
+		}
 		startPlot();
 	});
 
-    x_eq_vars = new ValueTable(sf::Vector2f(0, y_eq->pos().y));
-    y_eq_vars = new ValueTable(sf::Vector2f(116, y_eq->pos().y ));
+	param_lab = new Text(g_font, "Parameters", 16, sf::Vector2f(0, y_eq->pos().y + y_eq->size().y + 16));
+	param_lab->hide();
+
+    x_eq_vars = new ValueTable(sf::Vector2f(0, param_lab->pos().y));
+    y_eq_vars = new ValueTable(sf::Vector2f(116, param_lab->pos().y ));
 
 	Slider samp(Vector2d(-10, 10), sf::Vector2f(), 100);
     samp.ifValueChanged([&]()
@@ -242,6 +291,11 @@ void App::initEquationsTab() {
     equations.add(y_eq);
     equations.add(x_eq_vars);
     equations.add(y_eq_vars);    
+	equations.add(x_value);
+	equations.add(y_value);
+	equations.add(time_lab);
+	equations.add(eqat_lab);
+	equations.add(param_lab);
 
     equations.hide();
 }

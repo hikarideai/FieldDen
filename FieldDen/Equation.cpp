@@ -125,6 +125,11 @@ void Equation::parseInfix(std::string ifx, std::deque<Token> &exp) {
 }
 
 void Equation::parse(std::string ifx) {
+	if (DEBUG) std::cout << "Clear";
+	vars.clear();
+	val_table.clear();
+	if (DEBUG) std::cout << '.';
+
 	if (DEBUG) std::cout << "StringNotEmpty";
 	if (ifx.empty())
 	{
@@ -139,22 +144,17 @@ void Equation::parse(std::string ifx) {
 			if (i == '(') braces++;
 			else if (i == ')') braces--;
 
-		if (braces > 0) {
-			error = true;
-			message = "Brace balance corrupt(Maybe you forgot to put \')\'";
-			return;
-		}
-		else if (braces < 0) {
-			error = true;
-			message = "Brace balance corrupt(Maybe you forgot to put \'(\'";
-			return;
-		}
+			if (braces > 0) {
+				error = true;
+				message = "Brace balance corrupt(Maybe you forgot to put \')\'";
+				return;
+			}
+			else if (braces < 0) {
+				error = true;
+				message = "Brace balance corrupt(Maybe you forgot to put \'(\'";
+				return;
+			}
 	}
-
-	if (DEBUG) std::cout << ".Clear";
-	vars.clear();
-	val_table.clear();
-	if (DEBUG) std::cout << '.';
 
 	std::deque<Token> tokens;
 	parseInfix(ifx, tokens);
