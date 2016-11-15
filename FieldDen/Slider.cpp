@@ -230,4 +230,5 @@ void Slider::setValue(double val) {
     slider_.setPosition(new_pos);
 	value_ = val;
     label->setContent(name_ + ": " + std::to_string(value_));
+	cust_val();
 }

@@ -62,6 +62,7 @@ public:
 private:
     void initialize();
     void initGeneralTab();
+	void initColorTab();
     void initEquationsTab();
     void initRibbon();
 
@@ -73,6 +74,12 @@ private:
 	Slider *iterations;
 	Slider *transparency_value, *zoom_value;
     
+	//Color tab
+	Panel color_sel;
+	Text *color1, *color2;
+	Slider *ch1, *cs1, *cl1;
+	Slider *ch2, *cs2, *cl2;
+
     //Equations
     Panel equations;
 	Text *param_lab, *time_lab, *eqat_lab;
@@ -82,7 +89,7 @@ private:
 
     //Ribbon
     TabHolder ribbon;
-    Tab *tab_gen, *tab_eq;
+    Tab *tab_gen, *tab_eq, *tab_col;
 
 
     ValueTable test;

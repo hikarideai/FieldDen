@@ -105,6 +105,10 @@ public:
 	void shiftX(int val);
 	void shiftY(int val);
 
+	void update()
+	{
+		need_update_ = true;
+	}
 	void draw(sf::RenderWindow &w);
 
 private:

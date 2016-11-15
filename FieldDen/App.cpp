@@ -22,7 +22,8 @@ App::App() {
         std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
 
     initGeneralTab();
-    initEquationsTab();
+	initColorTab();
+	initEquationsTab();
     initRibbon();
 
 	graph->setTransparency(255);
@@ -50,11 +51,12 @@ void App::plot() {
 
     dt = dt_value->getValue();
     x.setVar("t", t_value->getValue());
-    y.setVar("t", t_value->getValue());
 	x.setVar("x", x_value->getValue());
+	x.setVar("y", y_value->getValue());
+    y.setVar("t", t_value->getValue());
 	y.setVar("y", y_value->getValue());
 	y.setVar("x", x_value->getValue());
-	x.setVar("y", y_value->getValue());
+	
 
 
 	x.calc();
@@ -133,7 +135,7 @@ void App::initGeneralTab() {
     
     //Iterations number slider
     iterations = new Slider(Vector2d(0, 9), sf::Vector2f(0, 0), 200);
-    iterations->setName("Iterations(log)");
+    iterations->setName("Iterations (log)");
 	iterations->setValue(5);
     iterations->ifValueChanged([&]()
     {
@@ -155,7 +157,7 @@ void App::initGeneralTab() {
 
 	//Zoom slider
 	zoom_value = new Slider(Vector2d(0, 10), sf::Vector2f(0, transparency_value->pos().y + transparency_value->size().y + 4), 200);
-	zoom_value->setName("Zoom(log)");
+	zoom_value->setName("Zoom (log)");
 	zoom_value->setValue(1);
 	zoom_value->ifValueChanged([&]()
 	{
@@ -174,6 +176,116 @@ void App::initGeneralTab() {
 
     general.hide();
 }
+
+void App::initColorTab()
+{
+	color_sel.init(sf::Vector2f(64, 8));
+
+	color1 = new Text(g_font, "Color 1", 16);
+	color2 = new Text(g_font, "Color 2", 16, sf::Vector2f(216, 0));
+
+	//Color 1 HUE
+	ch1 = new Slider(Vector2d(0, 360), sf::Vector2f(0, color1->pos().y + color1->size().y + 8));
+	ch1->setName("Hue");
+	ch1->ifValueChanged([&]()
+	{
+		graph->startColour().hue = int(ch1->getValue());
+		graph->update();
+	});
+	ch1->ifSliderMoved([&]()
+	{
+		graph->startColour().hue = int(ch1->getValue());
+		graph->update();
+	});
+	ch1->setValue(100);
+	
+	//Color 1 SATURATION
+	cs1 = new Slider(Vector2d(0, 100), sf::Vector2f(0, ch1->pos().y + ch1->size().y + 4));
+	cs1->setName("Saturation");
+	cs1->ifValueChanged([&]()
+	{
+		graph->startColour().sat = cs1->getValue()/100;
+		graph->update();
+	});
+	cs1->ifSliderMoved([&]()
+	{
+		graph->startColour().sat = cs1->getValue()/100;
+		graph->update();
+	});
+	cs1->setValue(100);
+
+	//Color 1 LUMINOSITY
+	cl1 = new Slider(Vector2d(0, 100), sf::Vector2f(0, cs1->pos().y + cs1->size().y + 4));
+	cl1->setName("Luminosity");
+	cl1->ifValueChanged([&]()
+	{
+		graph->startColour().lum = cl1->getValue()/100;
+		graph->update();
+	});
+	cl1->ifSliderMoved([&]()
+	{
+		graph->startColour().lum = cl1->getValue()/100;
+		graph->update();
+	});
+	cl1->setValue(50);
+
+	//Color 2 HUE
+	ch2 = new Slider(Vector2d(0, 360), sf::Vector2f(color2->pos().x, color2->pos().y + color2->size().y + 8));
+	ch2->setName("Hue");
+	ch2->ifValueChanged([&]()
+	{
+		graph->endColour().hue = int(ch2->getValue());
+		graph->update();
+	});
+	ch2->ifSliderMoved([&]()
+	{
+		graph->endColour().hue = int(ch2->getValue());
+		graph->update();
+	});
+	ch2->setValue(200);
+
+	//Color 2 SATURATION
+	cs2 = new Slider(Vector2d(0, 100), sf::Vector2f(color2->pos().x, ch2->pos().y + ch2->size().y + 4));
+	cs2->setName("Saturation");
+	cs2->ifValueChanged([&]()
+	{
+		graph->endColour().sat = cs2->getValue() / 100;
+		graph->update();
+	});
+	cs2->ifSliderMoved([&]()
+	{
+		graph->endColour().sat = cs2->getValue() / 100;
+		graph->update();
+	});
+	cs2->setValue(100);
+
+	//Color 2 LUMINOSITY
+	cl2 = new Slider(Vector2d(0, 100), sf::Vector2f(color2->pos().x, cs2->pos().y + cs2->size().y + 4));
+	cl2->setName("Luminosity");
+	cl2->ifValueChanged([&]()
+	{
+		graph->endColour().lum = cl2->getValue()/100;
+		graph->update();
+	});
+	cl2->ifSliderMoved([&]()
+	{
+		graph->endColour().lum = cl2->getValue()/100;
+		graph->update();
+	});
+	cl2->setValue(50);
+
+	color_sel.add(color1);
+	color_sel.add(color2);
+	color_sel.add(ch1);
+	color_sel.add(cs1);
+	color_sel.add(cl1);
+	color_sel.add(ch2);
+	color_sel.add(cs2);
+	color_sel.add(cl2);
+
+	color_sel.hide();
+}
+
 
 void App::initEquationsTab() {
 	x.ignore({ "x", "y", "t" });
@@ -303,7 +415,16 @@ void App::initRibbon() {
         return true;
     });
     
-    
+	tab_col = new Tab("Color", 24, sf::Vector2f(32, 32));
+	tab_col->onActivation([&]() {
+		color_sel.show();
+		return false;
+	});
+	tab_col->onDeactivation([&]() {
+		color_sel.hide();
+		return true;
+	});
+
     tab_eq = new Tab("Output", 24, sf::Vector2f(32, 32));
     tab_eq->onActivation([&]() {
         equations.show();
@@ -316,6 +437,7 @@ void App::initRibbon() {
 
     ribbon.init(sf::Vector2f(8, 8), ORDER_VERTICALY);
     ribbon.add(tab_gen);
+	ribbon.add(tab_col);
     ribbon.add(tab_eq);
 }
 
@@ -327,7 +449,8 @@ void App::initialize() {
 
     initGeneralTab();
     initEquationsTab();
-    initRibbon();
+	initColorTab();
+	initRibbon();
 	
 	graph->clear();
 	graph->setPosition(0, 0);
@@ -418,6 +541,7 @@ void App::loop() {
 		
             ribbon.check(event, window);
             general.check(event, window);
+			color_sel.check(event, window);
             equations.check(event, window);
             test.check(event, window);
         }
@@ -447,6 +571,7 @@ void App::loop() {
 
         window.draw(ribbon);
         window.draw(general);
+		window.draw(color_sel);
         window.draw(equations);
 
         window.display();
