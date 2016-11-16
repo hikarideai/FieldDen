@@ -60,7 +60,7 @@ void ValueTable::genFrom(std::deque<std::string> &table) {
 	size_t i = 0, last = strip_.size();
 	for (auto it = strip_.begin(); it != strip_.end(); ++it, ++i)
 	{
-		std::cout << (i >= table.size() ? "              " : table[i]) << "\t" << (*it)->getName() << "\n";
+		std::cout << (i >= table.size() ? "              " : table[i]) << "\t" << (*it)->getName().toAnsiString() << "\n";
 	}
 	for (; i < table.size(); i++)
 	{
@@ -72,7 +72,7 @@ void ValueTable::genFrom(std::deque<std::string> &table) {
 	for (auto it = strip_.begin(); it != strip_.end(); ++it) {
 		if (i < table.size() && table[i] != (*it)->getName()) {
 			std::cout << i << ") table[" << i << "] = " << table[i] << "\n ";
-			std::cout << "it = " << (*it)->getName() << "\n ";
+			std::cout << "it = " << (*it)->getName().toAnsiString() << "\n ";
 
 			auto *new_slider = sample_.copy();
 			new_slider->setPos(sf::Vector2f(pos_.x + shift_x, pos_.y + shift_y + (sample_.pos().y + SLIDER_PADDING)*(i + 1)));
@@ -83,7 +83,7 @@ void ValueTable::genFrom(std::deque<std::string> &table) {
 		}
 		else if (i >= table.size())
 		{
-			std::cout << "it = " << (*it)->getName() << "\n ";
+			std::cout << "it = " << (*it)->getName().toAnsiString() << "\n ";
 			strip_.erase(it, strip_.end());
 			std::cout << "REACHED table END\n";
 			break;

@@ -5,7 +5,7 @@
 
 class Text : public Widget {
 public:
-    Text(sf::Font &font = g_font, std::string text = "", uint16_t size = 14, sf::Vector2f pos = sf::Vector2f(0,0));
+    Text(sf::Font &font = g_font, sf::String text = "", uint16_t size = 14, sf::Vector2f pos = sf::Vector2f(0,0));
 
     void setCharSize(uint16_t size)
     {
@@ -28,7 +28,7 @@ public:
 
     EVENT_TYPE check(sf::Event& event, sf::Window& relative);
 
-    void setContent(std::string content) {
+    void setContent(sf::String content) {
         text_.setString(content);
     }
     std::string content() { return text_.getString(); }

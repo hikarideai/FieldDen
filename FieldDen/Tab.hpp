@@ -14,7 +14,7 @@ public:
         active_ = false;
         default_ = sf::Color::Transparent;
     }
-    Tab(std::string path, int size = 32, sf::Vector2f pos = sf::Vector2f(0, 0));
+    Tab(sf::String path, int size = 32, sf::Vector2f pos = sf::Vector2f(0, 0));
 
     //From Widget
     sf::Vector2f size() {

@@ -5,11 +5,12 @@
 
 #include <thread>
 #define _CRT_SECURE_NO_WARNINGS true
+#define LANGUAGE_PACK_PATH "lang/russian.lang"
 
 App::App() {
     settings.antialiasingLevel = 0;
 
-    window.create(sf::VideoMode(width, height), "Universal 2D Plotter", sf::Style::Default, settings);
+    window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
     window.setFramerateLimit(60);
 
 	graph = new Plane();
@@ -18,13 +19,16 @@ App::App() {
 	graph->setSize(width, height);
 	graph->setCentrePosition(width / 2, height / 2);
 
-    if (!g_font.loadFromFile("Inconsolata-Regular.ttf"))
+    if (!g_small_font.loadFromFile("Arial-Narrow.ttf"))
         std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
 
+	if (!g_font.loadFromFile("Arial.ttf"))
+		std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
+
+	initRibbon();
     initGeneralTab();
 	initColorTab();
-	initEquationsTab();
-    initRibbon();
+	initEquationsTab();    
 
 	graph->setTransparency(255);
 }
@@ -109,7 +113,7 @@ void App::startPlot()
 		plotter = std::thread(&App::plot, this);
 	} catch(...)
 	{
-		std::cout << "startPlot has been called, but thread wasn't stopped\n";
+		std::cout << "startPlot have been called, but was not stopped\n";
 	}
 }
 
@@ -131,11 +135,11 @@ void App::stopPlot()
 }
 
 void App::initGeneralTab() {
-    general.init(sf::Vector2f(64, 8));
+    general.init(sf::Vector2f(ribbon.pos().x+ribbon.size().x+8, 8));
     
     //Iterations number slider
     iterations = new Slider(Vector2d(0, 9), sf::Vector2f(0, 0), 200);
-    iterations->setName("Iterations (log)");
+    iterations->setName(sf::String(L"Кол-во итераций (log)"));
 	iterations->setValue(5);
     iterations->ifValueChanged([&]()
     {
@@ -144,7 +148,7 @@ void App::initGeneralTab() {
 
 	//Transparency slider
 	transparency_value = new Slider(Vector2d(0, 255), sf::Vector2f(0, iterations->pos().y + iterations->size().y + 4), 200);
-	transparency_value->setName("Transparency");
+	transparency_value->setName(sf::String(L"Прозрачность"));
 	transparency_value->setValue(255);
 	transparency_value->ifValueChanged([&]()
 	{
@@ -157,7 +161,7 @@ void App::initGeneralTab() {
 
 	//Zoom slider
 	zoom_value = new Slider(Vector2d(0, 10), sf::Vector2f(0, transparency_value->pos().y + transparency_value->size().y + 4), 200);
-	zoom_value->setName("Zoom (log)");
+	zoom_value->setName(sf::String(L"Увеличение (log)"));
 	zoom_value->setValue(1);
 	zoom_value->ifValueChanged([&]()
 	{
@@ -179,14 +183,14 @@ void App::initGeneralTab() {
 
 void App::initColorTab()
 {
-	color_sel.init(sf::Vector2f(64, 8));
+	color_sel.init(sf::Vector2f(ribbon.pos().x + ribbon.size().x + 8, 8));
 
-	color1 = new Text(g_font, "Color 1", 16);
-	color2 = new Text(g_font, "Color 2", 16, sf::Vector2f(216, 0));
+	color1 = new Text(g_font, sf::String(L"Начальный цвет"), 16);
+	color2 = new Text(g_font, sf::String(L"Конечный цвет"), 16, sf::Vector2f(216, 0));
 
 	//Color 1 HUE
 	ch1 = new Slider(Vector2d(0, 360), sf::Vector2f(0, color1->pos().y + color1->size().y + 8));
-	ch1->setName("Hue");
+	ch1->setName(sf::String(L"Оттенок"));
 	ch1->ifValueChanged([&]()
 	{
 		graph->startColour().hue = int(ch1->getValue());
@@ -201,7 +205,7 @@ void App::initColorTab()
 	
 	//Color 1 SATURATION
 	cs1 = new Slider(Vector2d(0, 100), sf::Vector2f(0, ch1->pos().y + ch1->size().y + 4));
-	cs1->setName("Saturation");
+	cs1->setName(sf::String(L"Насыщенность"));
 	cs1->ifValueChanged([&]()
 	{
 		graph->startColour().sat = cs1->getValue()/100;
@@ -216,7 +220,7 @@ void App::initColorTab()
 
 	//Color 1 LUMINOSITY
 	cl1 = new Slider(Vector2d(0, 100), sf::Vector2f(0, cs1->pos().y + cs1->size().y + 4));
-	cl1->setName("Luminosity");
+	cl1->setName(sf::String(L"Светлота"));
 	cl1->ifValueChanged([&]()
 	{
 		graph->startColour().lum = cl1->getValue()/100;
@@ -231,7 +235,7 @@ void App::initColorTab()
 
 	//Color 2 HUE
 	ch2 = new Slider(Vector2d(0, 360), sf::Vector2f(color2->pos().x, color2->pos().y + color2->size().y + 8));
-	ch2->setName("Hue");
+	ch2->setName(sf::String(L"Оттенок"));
 	ch2->ifValueChanged([&]()
 	{
 		graph->endColour().hue = int(ch2->getValue());
@@ -246,7 +250,7 @@ void App::initColorTab()
 
 	//Color 2 SATURATION
 	cs2 = new Slider(Vector2d(0, 100), sf::Vector2f(color2->pos().x, ch2->pos().y + ch2->size().y + 4));
-	cs2->setName("Saturation");
+	cs2->setName(sf::String(L"Насыщенность"));
 	cs2->ifValueChanged([&]()
 	{
 		graph->endColour().sat = cs2->getValue() / 100;
@@ -261,7 +265,7 @@ void App::initColorTab()
 
 	//Color 2 LUMINOSITY
 	cl2 = new Slider(Vector2d(0, 100), sf::Vector2f(color2->pos().x, cs2->pos().y + cs2->size().y + 4));
-	cl2->setName("Luminosity");
+	cl2->setName(sf::String(L"Светлота"));
 	cl2->ifValueChanged([&]()
 	{
 		graph->endColour().lum = cl2->getValue()/100;
@@ -291,12 +295,12 @@ void App::initEquationsTab() {
 	x.ignore({ "x", "y", "t" });
 	y.ignore({ "x", "y", "t" });
 
-    equations.init(sf::Vector2f(64, 8));
+    equations.init(sf::Vector2f(ribbon.pos().x + ribbon.size().x + 8, 8));
 
-	time_lab = new Text(g_font, "Time", 16);
+	time_lab = new Text(g_font, sf::String(L"Время"), 16, sf::Vector2f(200+16, 0));
 
 	//t value slider
-	t_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, time_lab->pos().y+time_lab->size().y+12), 200);
+	t_value = new Slider(Vector2d(-10, 10), sf::Vector2f(time_lab->pos().x, time_lab->pos().y+time_lab->size().y+12), 200);
 	t_value->setName("t");
 	t_value->ifValueChanged([&]()
 	{
@@ -304,7 +308,7 @@ void App::initEquationsTab() {
 	});
 
 	//dt value slider
-	dt_value = new Slider(Vector2d(0, 1), sf::Vector2f(0, t_value->pos().y + t_value->size().y + 4), 200);
+	dt_value = new Slider(Vector2d(0, 1), sf::Vector2f(time_lab->pos().x, t_value->pos().y + t_value->size().y + 4), 200);
 	dt_value->setName("dt");
 	dt_value->setValue(0.005);
 	dt_value->ifValueChanged([&]()
@@ -312,7 +316,7 @@ void App::initEquationsTab() {
 		stopPlot(); startPlot();
 	});
 
-	eqat_lab = new Text(g_font, "Equations", 16, sf::Vector2f(0, dt_value->pos().y + dt_value->size().y + 16));
+	eqat_lab = new Text(g_font, sf::String(L"Функции"), 16);
 	
 	//Xinit
 	x_value = new Slider(Vector2d(-10, 10), sf::Vector2f(0, eqat_lab->pos().y + eqat_lab->size().y + 8), 200);
@@ -369,7 +373,7 @@ void App::initEquationsTab() {
 		startPlot();
 	});
 
-	param_lab = new Text(g_font, "Parameters", 16, sf::Vector2f(0, y_eq->pos().y + y_eq->size().y + 16));
+	param_lab = new Text(g_font, sf::String(L"Параметры"), 16, sf::Vector2f(0, y_eq->pos().y + y_eq->size().y + 16));
 	param_lab->hide();
 
     x_eq_vars = new ValueTable(sf::Vector2f(0, param_lab->pos().y));
@@ -405,7 +409,7 @@ void App::initEquationsTab() {
 }
 
 void App::initRibbon() {
-    tab_gen = new Tab("General", 24, sf::Vector2f(32, 32));
+    tab_gen = new Tab(sf::String(L"Основные"), 24, sf::Vector2f(32, 32));
     tab_gen->onActivation([&]() {
         general.show();
         return false;
@@ -415,7 +419,7 @@ void App::initRibbon() {
         return true;
     });
     
-	tab_col = new Tab("Color", 24, sf::Vector2f(32, 32));
+	tab_col = new Tab(sf::String(L"Цвет"), 24, sf::Vector2f(32, 32));
 	tab_col->onActivation([&]() {
 		color_sel.show();
 		return false;
@@ -425,7 +429,7 @@ void App::initRibbon() {
 		return true;
 	});
 
-    tab_eq = new Tab("Output", 24, sf::Vector2f(32, 32));
+    tab_eq = new Tab(sf::String(L"Вывод"), 24, sf::Vector2f(32, 32));
     tab_eq->onActivation([&]() {
         equations.show();
         return false;

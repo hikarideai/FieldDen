@@ -16,6 +16,7 @@ hikarideai
 #include <atomic>
 #include <mutex>
 #include "Plane.hpp"
+#include "Language.hpp"
 
 class App {
 public:

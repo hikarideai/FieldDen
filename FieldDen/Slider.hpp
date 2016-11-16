@@ -20,12 +20,12 @@ public:
     //Slider(const Slider &);
     Slider(Vector2d bounds = Vector2d(-10, 10), sf::Vector2f pos = sf::Vector2f(), double width = 200);
 
-    void setName(std::string s)
+    void setName(sf::String s)
     {
-        name_ = s;
-        label->setContent(name_ + ": 0");
+		name_ = s;
+		label->setContent(sf::String(s.toWideString() + L": 0"));
     }
-    std::string getName() const { return name_; }
+    sf::String getName() const { return name_; }
 	Vector2d getRange() const { return Vector2d(min_, max_); }
 
     //From Widget
@@ -103,7 +103,7 @@ private:
 	sf::Vector2f pos_;
     TextBox *setter_ = nullptr;
     Text *label = nullptr;
-    std::string name_;
+    sf::String name_;
 
     sf::RectangleShape body_;
     sf::RectangleShape slider_;

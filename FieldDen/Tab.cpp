@@ -1,14 +1,13 @@
 #include "Tab.hpp"
 #include "Globals.hpp"
 
-Tab::Tab(std::string title, int size, sf::Vector2f pos) {	
+Tab::Tab(sf::String title, int size, sf::Vector2f pos) {	
 	label_.setCharacterSize(TEXT_SIZE);
 	label_.setFont(std::ref(g_font));
 	label_.setColor(sf::Color::Black);
-	label_.setString(title);
 
 	label_.setString(ALPHABET);
-	sf::FloatRect labelRect = label_.getGlobalBounds();
+	auto labelRect = label_.getGlobalBounds();
 	label_.setOrigin(labelRect.left, labelRect.top);
 	label_.setString(title);
 

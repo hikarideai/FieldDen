@@ -1,6 +1,6 @@
 #include "Text.hpp"
 
-Text::Text(sf::Font &font, std::string text, uint16_t size, sf::Vector2f pos) {
+Text::Text(sf::Font &font, sf::String text, uint16_t size, sf::Vector2f pos) {
     text_.setCharacterSize(size);
 
     text_.setString("()/");

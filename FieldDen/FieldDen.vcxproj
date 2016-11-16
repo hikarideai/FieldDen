@@ -22,7 +22,7 @@
     <ProjectGuid>{003A7203-93B4-487D-A508-B68D1171C90E}</ProjectGuid>
     <RootNamespace>FieldDen</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>FieldDen 0.65</ProjectName>
+    <ProjectName>FieldDen</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -170,6 +170,7 @@
     <ClCompile Include="Equation.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="ImageButton.cpp" />
+    <ClCompile Include="Language.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="Plane.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="EventType.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="ImageButton.hpp" />
+    <ClInclude Include="Language.hpp" />
     <ClInclude Include="Panel.hpp" />
     <ClInclude Include="Plane.hpp" />
     <ClInclude Include="Slider.hpp" />
