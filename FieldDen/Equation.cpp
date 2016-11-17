@@ -125,11 +125,6 @@ void Equation::parseInfix(std::string ifx, std::deque<Token> &exp) {
 }
 
 void Equation::parse(std::string ifx) {
-	if (DEBUG) std::cout << "Clear";
-	vars.clear();
-	val_table.clear();
-	if (DEBUG) std::cout << '.';
-
 	if (DEBUG) std::cout << "StringNotEmpty";
 	if (ifx.empty())
 	{
@@ -155,6 +150,11 @@ void Equation::parse(std::string ifx) {
 				return;
 			}
 	}
+
+	if (DEBUG) std::cout << "Clear";
+	vars.clear();
+	val_table.clear();
+	if (DEBUG) std::cout << '.';
 
 	std::deque<Token> tokens;
 	parseInfix(ifx, tokens);
