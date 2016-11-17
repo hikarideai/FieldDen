@@ -185,7 +185,7 @@ void Equation::parse(std::string ifx) {
 			//If we reached open para then pop it, else there are an error
 			if (token_stack.top().type == OPENBRACE) {
 				token_stack.pop();
-				if (token_stack.top().type == FUNCTION)
+				if (!token_stack.empty() && token_stack.top().type == FUNCTION)
 				{
 					expression.push_back(token_stack.top());
 					token_stack.pop();

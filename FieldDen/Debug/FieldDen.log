@@ -11,7 +11,7 @@ LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за с�
   Создание кода
   3 of 6035 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 sfml-graphics-s-d.lib(BlendMode.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(BlendMode.cpp.obj)" или на "C:\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 sfml-graphics-s-d.lib(Color.cpp.obj) : warning LNK4099: "vc140.pdb" PDB не найден с "sfml-graphics-s-d.lib(Color.cpp.obj)" или на "C:\FieldDen\Debug\vc140.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
