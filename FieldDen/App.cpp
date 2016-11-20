@@ -4,6 +4,9 @@
 #include "Slider.hpp"
 
 #include <thread>
+
+#define THREAD_DEBUG 0
+
 #define _CRT_SECURE_NO_WARNINGS true
 #define LANGUAGE_PACK_PATH "lang/russian.lang"
 #define MOUSE_WHEEL_ZOOM 0.1
@@ -36,16 +39,15 @@ App::App() {
 
 void App::plot() {
 	stop_plotting = false; is_plotting = true;
-    std::cout << "Vertex thread> Checking plot's requirements\n";
 	if (x.failed())
 	{
-		std::cout << "Vertex thread> x equation error: " << x.what() << "\n";
+		std::cout << "X EQUATION THROWN AN ERROR: " << x.what() << "\n";
 		stop_plotting = false; is_plotting = false;
 		return;
 	}
 	if (y.failed())
 	{
-		std::cout << "Vertex thread> y equation error: " << y.what() << "\n";
+		std::cout << "Y EQUATION THROWN AN ERROR: " << y.what() << "\n";
 		stop_plotting = false; is_plotting = false;
 		return;
 	}
@@ -68,19 +70,20 @@ void App::plot() {
 
 	x.calc();
 	y.calc();
-	std::cout << "Vertex thread> Computing plot\n";
 	if (x.failed())
 	{
-		std::cout << "Vertex thread> x equation error: " << x.what() << "\n";
+		std::cout << "X EQUATION THROWN AN ERROR: " << x.what() << "\n";
 		stop_plotting = false; is_plotting = false;
 		return;
 	}
 	if (y.failed())
 	{
-		std::cout << "Vertex thread> y equation error: " << y.what() << "\n";
+		std::cout << "Y EQUATION THROWN AN ERROR: " << y.what() << "\n";
 		stop_plotting = false; is_plotting = false;
 		return;
 	}
+
+	std::cout << "INFO: Plotting started\n";
 
 	long long start_time = clock();
 
@@ -107,7 +110,7 @@ void App::plot() {
         x.setVar("y", fy);
         y.setVar("y", fy);
     }
-	std::cout << "Vertex thread> Ready in " << float(clock()-start_time)/CLOCKS_PER_SEC << " sec\n";
+	std::cout << "INFO: Plot is ready in " << float(clock()-start_time)/CLOCKS_PER_SEC << " sec\n";
 }
 
 void App::startPlot()
@@ -116,24 +119,24 @@ void App::startPlot()
 		plotter = std::thread(&App::plot, this);
 	} catch(...)
 	{
-		std::cout << "startPlot have been called, but was not stopped\n";
+		std::cout << "THREAD ERROR: startPlot() have been called, but was not stopped\n";
 	}
 }
 
 void App::stopPlot()
 {
 	if (!stop_plotting) {
-		std::cout << "Vertex thread> Canceling plot\n";
+		if (THREAD_DEBUG) std::cout << "THREAD INFO: Plot is beeing canceled\n";
 		stop_plotting = true;
 		plotter.join();
-		std::cout << "Vertex thread> Plot discarded\n";
+		if (THREAD_DEBUG) std::cout << "THREAD INFO: Plot have been discarded\n";
 		graph->clear();
 	} else
 	{
 		if (is_plotting)
-			std::cout << "Vertex thread> stopPlot() called, but won't stop plot(). However, it's running\n";
+			std::cout << "THREAD WARNING: stopPlot() called, but won't stop plot(). However, it's running\n";
 		else
-			std::cout << "Vertex thread> stopPlot() called, but won't stop plot(), because it's not running\n";
+			std::cout << "THREAD WARNING: stopPlot() called, but won't stop plot(), because it's not running\n";
 	}
 }
 
@@ -387,11 +390,11 @@ void App::initEquationsTab() {
     {
 		stopPlot(); startPlot();
     });
-	/*
+	
 	samp.ifSliderMoved([&]()
 	{
 		stopPlot(); startPlot();
-	});*/
+	});
 
     x_eq_vars->setSample(samp);
     y_eq_vars->setSample(samp);
@@ -523,6 +526,13 @@ void App::loop() {
 					time_t now = time(0);
 					tm *gmtm = localtime(&now);
 
+					std::string path = "screenshots\\" + std::to_string(1 + gmtm->tm_mon) + '-'
+						+ std::to_string(gmtm->tm_mday) + '-'
+						+ std::to_string(1900 + gmtm->tm_year) + ' '
+						+ std::to_string(gmtm->tm_hour) + '-'
+						+ std::to_string(gmtm->tm_min) + '-'
+						+ std::to_string(gmtm->tm_sec) + ".png";
+
 					//TODO: Use boost to create screenshots directory
 					graph->saveAsImage("screenshots\\"+std::to_string(1+gmtm->tm_mon)+'-'
 						+ std::to_string(gmtm->tm_mday)+'-'
@@ -530,6 +540,7 @@ void App::loop() {
 						+ std::to_string(gmtm->tm_hour) + '-'
 						+ std::to_string(gmtm->tm_min) + '-'
 						+ std::to_string(gmtm->tm_sec) + ".png");
+					std::cout << "Screenhot saved as " << path << std::endl;
 				}
             }
 			else if (event.type == sf::Event::KeyReleased)
