@@ -11,6 +11,7 @@ void Plane::push(sf::Vector2f vert)
 	if (!insertFragment(vert))
 			return;
 	need_update_ = true;*/
+	//std::cout << '(' << vert.x << ' ' << vert.y << ") ";
 	push_mutex_.lock();
 	vertices_array_.append(sf::Vertex(vert, sf::Color::Black));
 	push_mutex_.unlock();

@@ -6,6 +6,7 @@
 #include <thread>
 #define _CRT_SECURE_NO_WARNINGS true
 #define LANGUAGE_PACK_PATH "lang/russian.lang"
+#define MOUSE_WHEEL_ZOOM 0.1
 
 App::App() {
     settings.antialiasingLevel = 0;
@@ -52,6 +53,8 @@ void App::plot() {
 	graph->clear();
     x.getVars() = x_eq_vars->get();
     y.getVars() = y_eq_vars->get();
+
+	std::cout << "X = " << x_value->getValue() << " Y = " << y_value->getValue() << std::endl;
 
     dt = dt_value->getValue();
     x.setVar("t", t_value->getValue());
@@ -481,7 +484,18 @@ void App::loop() {
     while (window.isOpen()) {
 
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::KeyPressed)
+			if (event.type == sf::Event::MouseWheelScrolled)
+			{
+				if (event.mouseWheelScroll.delta > 0)
+				{
+					zoom_value->setValue(zoom_value->getValue() + MOUSE_WHEEL_ZOOM);
+				}
+				else if (event.mouseWheelScroll.delta < 0)
+				{
+					zoom_value->setValue(zoom_value->getValue() - MOUSE_WHEEL_ZOOM);
+				}
+			}
+            else if (event.type == sf::Event::KeyPressed)
             {
 				if (event.key.code == sf::Keyboard::Left)
 				{
