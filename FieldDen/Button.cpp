@@ -11,7 +11,7 @@ void Button::updateText() {
     text_.setPosition(body_pos.x + size_ / 4, body_pos.y + size_ / 8);
 }
 
-Button::Button(sf::Font &font, const std::string &label, sf::Vector2f pos, unsigned int size) : content_(label) {
+Button::Button(sf::Font &font, const sf::String &label, sf::Vector2f pos, unsigned int size) : content_(label) {
     text_.setFont(font);
     text_.setColor(sf::Color::Black);
     text_.setCharacterSize(size / 2);

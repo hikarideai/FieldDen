@@ -3,7 +3,7 @@
 
 class Button : public Widget {
 public:
-    Button(sf::Font &font, const std::string &label, sf::Vector2f pos, unsigned int size);
+    Button(sf::Font &font, const sf::String &label, sf::Vector2f pos, unsigned int size = 32);
 
     //From Widget
     sf::Vector2f size() {
@@ -22,8 +22,8 @@ public:
 
     EVENT_TYPE check(sf::Event& event, sf::Window& relative);
 
-    std::string content() { return content_; }
-    void content(std::string label) {
+    std::string content() { return content_.toAnsiString(); }
+    void content(sf::String label) {
         content_ = label;
         updateText();
     }
@@ -34,7 +34,7 @@ public:
 
 private:
     sf::Text text_;
-    std::string content_;
+    sf::String content_;
 
     sf::RectangleShape body_;
     float size_;

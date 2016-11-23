@@ -112,13 +112,20 @@ void Plane::setZoom(double val)
 
 void Plane::shiftX(int val)
 {
-	shift_x += val;
+	shift_x += val/zoom;
 	need_update_ = true;
 }
 
 void Plane::shiftY(int val)
 {
-	shift_y += val;
+	shift_y += val/zoom;
+	need_update_ = true;
+}
+
+void Plane::realign()
+{
+	shift_x = 0;
+	shift_y = 0;
 	need_update_ = true;
 }
 
@@ -199,7 +206,7 @@ void Plane::updateTexture()
 	push_mutex_.lock();
 	for (size_t i = 0; i < vertices_array_.getVertexCount(); i++)
 	{
-		int tx = int(centre_.x) + vertices_array_[i].position.x*zoom+shift_x, ty = int(centre_.y) - vertices_array_[i].position.y*zoom + shift_y;
+		int tx = int(centre_.x) + vertices_array_[i].position.x*zoom+shift_x*zoom, ty = int(centre_.y) - vertices_array_[i].position.y*zoom + shift_y*zoom;
 		
 		if (!isPixelVxisible(tx, ty))
 			continue;

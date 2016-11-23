@@ -177,12 +177,18 @@ void App::initGeneralTab() {
 	{
 		graph->setZoom(std::pow(10, zoom_value->getValue()) / 10);
 	});
-	
+
+	center_view = new Button(g_font, sf::String(L"Выровнять по центру"), sf::Vector2f(0, zoom_value->pos().y+zoom_value->size().y+8));
+	center_view->onClick([&]()
+	{
+		graph->realign();
+	});
 
 	//Link sliders
     general.add(iterations);
 	general.add(transparency_value);
 	general.add(zoom_value);
+	general.add(center_view);
 
     general.hide();
 }

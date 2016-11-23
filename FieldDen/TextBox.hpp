@@ -16,7 +16,7 @@ public:
     }
     void setPos(sf::Vector2f pos) { 
         body_.setPosition(pos);
-        text_.setPosition(sf::Vector2f(pos.x + size_ / 8, pos.y + size_ / 8));
+        text_.setPosition(sf::Vector2f(0, 0));
     }
     Widget* clone() const {
         return new TextBox(*this);

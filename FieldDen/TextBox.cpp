@@ -1,31 +1,31 @@
 #include "TextBox.hpp"
 
 TextBox::TextBox(sf::Font &font, sf::Vector2f pos, unsigned int size) {
-    text_.setString(content_);
-    text_.setCharacterSize(size / 2);
-    text_.setColor(sf::Color::Black);
-    text_.setFont(font);
-    text_.setStyle(sf::Text::Regular);
+	text_.setString(content_);
+	text_.setCharacterSize(size / 2);
+	text_.setColor(sf::Color::Black);
+	text_.setFont(font);
+	text_.setStyle(sf::Text::Regular);
 
-    text_.setString("()/");
-    text_.setOrigin(text_.getGlobalBounds().left, text_.getGlobalBounds().top);
-    text_.setString("");
+	text_.setString("()/");
+	text_.setOrigin(text_.getGlobalBounds().left, text_.getGlobalBounds().top);
+	text_.setString("");
 
-    size_ = size;
+	size_ = size;
 
-    body_.setPosition(pos);
-    body_.setOrigin(0, 0);
-    text_.setPosition(sf::Vector2f(pos.x + size_ / 8, pos.y + size_ / 8));
-    body_.setFillColor(sf::Color(225, 225, 225, 200));
-    // body_.setOutlineColor(sf::Color(200, 200, 200, 200));
-    body_.setSize(sf::Vector2f(3 * size_ / 4, 3 * size_ / 4));
-    edit_ = false;
-    hover_ = false;
-    visible_ = true;
-    only_numbers_ = false;
+	body_.setPosition(pos);
+	body_.setOrigin(0, 0);
+	text_.setPosition(sf::Vector2f(pos.x + size_ / 8, pos.y + size_ / 8));
+	body_.setFillColor(sf::Color(225, 225, 225, 200));
+	// body_.setOutlineColor(sf::Color(200, 200, 200, 200));
+	body_.setSize(sf::Vector2f(3 * size_ / 4, 3 * size_ / 4));
+	edit_ = false;
+	hover_ = false;
+	visible_ = true;
+	only_numbers_ = false;
 
-    l_ = 32;
-    h_ = 127;
+	l_ = 32;
+	h_ = 127;
 }
 
 EVENT_TYPE TextBox::check(sf::Event& event, sf::Window& relative) {
@@ -72,8 +72,7 @@ EVENT_TYPE TextBox::check(sf::Event& event, sf::Window& relative) {
 		return UNCLICK;
     case sf::Event::TextEntered:
         if (!edit_) return NOTHING;
-        if (event.text.unicode == '.' || (text_.getString() == "" && event.text.unicode == '-') || (l_ <= event.text.unicode && event.text.unicode <= h_))
-        {
+        if (event.text.unicode == '.' || (text_.getString() == "" && event.text.unicode == '-') || (l_ <= event.text.unicode && event.text.unicode <= h_)) {
             content_ += static_cast<char>(event.text.unicode);
             updateText();
             txi();

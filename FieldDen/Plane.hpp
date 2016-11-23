@@ -104,6 +104,7 @@ public:
 	void setZoom(double val);
 	void shiftX(int val);
 	void shiftY(int val);
+	void realign();
 
 	void update()
 	{
@@ -124,7 +125,7 @@ private:
 
 	//TODO: Make them work
 	double zoom = 1;
-	int shift_x = 0, shift_y = 0;
+	double shift_x = 0, shift_y = 0;
 
 	std::vector<sf::Vector2f> vertices_;
 	std::map<sf::Vector2i, long long, VectorComparator> fragments_;

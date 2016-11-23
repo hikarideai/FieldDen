@@ -17,6 +17,7 @@ hikarideai
 #include <mutex>
 #include "Plane.hpp"
 #include "Language.hpp"
+#include "Button.hpp"
 
 class App {
 public:
@@ -72,6 +73,7 @@ private:
 
     //General tab
     Panel general;
+	Button *center_view;
 	Slider *iterations;
 	Slider *transparency_value, *zoom_value;
     
