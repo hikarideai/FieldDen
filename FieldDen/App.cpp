@@ -17,6 +17,11 @@ App::App() {
     window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
     window.setFramerateLimit(60);
 
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+
+	window.setIcon(256, 256, icon.getPixelsPtr());
+		
 	graph = new Plane();
 	graph->clear();
 	graph->setPosition(0, 0);
@@ -38,25 +43,19 @@ App::App() {
 }
 
 void App::plot() {
-	stop_plotting = false; is_plotting = true;
-	if (x.failed())
-	{
-		std::cout << "X EQUATION THROWN AN ERROR: " << x.what() << "\n";
-		stop_plotting = false; is_plotting = false;
+reset:
+	reset_plot_ = false;
+	stop_plot_ = false;
+	this->is_plotting = true;
+
+	if (checkEquations())
 		return;
-	}
-	if (y.failed())
-	{
-		std::cout << "Y EQUATION THROWN AN ERROR: " << y.what() << "\n";
-		stop_plotting = false; is_plotting = false;
-		return;
-	}
 
 	graph->clear();
     x.getVars() = x_eq_vars->get();
     y.getVars() = y_eq_vars->get();
 
-	std::cout << "X = " << x_value->getValue() << " Y = " << y_value->getValue() << std::endl;
+	//std::cout << "X = " << x_value->getValue() << " Y = " << y_value->getValue() << std::endl;
 
     dt = dt_value->getValue();
     x.setVar("t", t_value->getValue());
@@ -65,23 +64,12 @@ void App::plot() {
     y.setVar("t", t_value->getValue());
 	y.setVar("y", y_value->getValue());
 	y.setVar("x", x_value->getValue());
-	
-
 
 	x.calc();
 	y.calc();
-	if (x.failed())
-	{
-		std::cout << "X EQUATION THROWN AN ERROR: " << x.what() << "\n";
-		stop_plotting = false; is_plotting = false;
+	
+	if (checkEquations())
 		return;
-	}
-	if (y.failed())
-	{
-		std::cout << "Y EQUATION THROWN AN ERROR: " << y.what() << "\n";
-		stop_plotting = false; is_plotting = false;
-		return;
-	}
 
 	std::cout << "INFO: Plotting started\n";
 
@@ -89,14 +77,14 @@ void App::plot() {
 
     double fx, fy;
 	auto end = static_cast<long>(std::pow(10, iterations->getValue()));
+	this->is_plotting = true;
     for (auto i = 0; i < end; i++) {
-		if (stop_plotting) {
-			stop_plotting = false;
-			is_plotting = false;
-			return;
+		if (reset_plot_) {
+			graph->clear();
+			goto reset;
 		}
-
-		std::lock_guard<std::mutex> safe_execution(safe_calc);
+		if (stop_plot_)
+			break;
 
     	fx = x.calc();
         fy = y.calc();
@@ -111,23 +99,32 @@ void App::plot() {
         y.setVar("y", fy);
     }
 	std::cout << "INFO: Plot is ready in " << float(clock()-start_time)/CLOCKS_PER_SEC << " sec\n";
+	is_plotting = false;
+	stop_plot_ = false;
 }
 
-void App::startPlot()
+void App::resetPlot()
 {
-	try {
-		plotter = std::thread(&App::plot, this);
-	} catch(...)
-	{
-		std::cout << "THREAD ERROR: startPlot() have been called, but was not stopped\n";
+	if (is_plotting) {
+		reset_plot_ = true;
+	graph->clear();
+	}else {
+		try {
+			stopPlot();
+			plotter = std::thread(&App::plot, this);
+		}
+		catch (...)
+		{
+			std::cout << "THREAD ERROR: startPlot() have been called, but was not stopped\n";
+		}
 	}
 }
 
 void App::stopPlot()
 {
-	if (!stop_plotting) {
+	if (!stop_plot_) {
 		if (THREAD_DEBUG) std::cout << "THREAD INFO: Plot is beeing canceled\n";
-		stop_plotting = true;
+		stop_plot_ = true;
 		plotter.join();
 		if (THREAD_DEBUG) std::cout << "THREAD INFO: Plot have been discarded\n";
 		graph->clear();
@@ -140,6 +137,23 @@ void App::stopPlot()
 	}
 }
 
+bool App::checkEquations()
+{
+	if (x.failed())
+	{
+		std::cout << "X EQUATION THROWN AN ERROR: " << x.what() << "\n";
+		reset_plot_ = false; is_plotting = false;
+		return true;
+	}
+	if (y.failed())
+	{
+		std::cout << "Y EQUATION THROWN AN ERROR: " << y.what() << "\n";
+		reset_plot_ = false; is_plotting = false;
+		return true;
+	}
+	return false;
+}
+
 void App::initGeneralTab() {
     general.init(sf::Vector2f(ribbon.pos().x+ribbon.size().x+8, 8));
     
@@ -149,7 +163,7 @@ void App::initGeneralTab() {
 	iterations->setValue(5);
     iterations->ifValueChanged([&]()
     {
-		stopPlot(); startPlot();
+		resetPlot();
     });
 
 	//Transparency slider
@@ -316,7 +330,7 @@ void App::initEquationsTab() {
 	t_value->setName("t");
 	t_value->ifValueChanged([&]()
 	{
-		stopPlot(); startPlot();
+		resetPlot();
 	});
 
 	//dt value slider
@@ -325,7 +339,7 @@ void App::initEquationsTab() {
 	dt_value->setValue(0.005);
 	dt_value->ifValueChanged([&]()
 	{
-		stopPlot(); startPlot();
+		resetPlot();
 	});
 
 	eqat_lab = new Text(g_font, sf::String(L"Функции"), 16);
@@ -336,8 +350,7 @@ void App::initEquationsTab() {
 	x_value->setValue(0);
 	x_value->ifValueChanged([&]()
 	{
-		stopPlot();
-		startPlot();
+		resetPlot();
 	});
 
 	//X expression
@@ -354,7 +367,7 @@ void App::initEquationsTab() {
 		{
 			param_lab->show();
 		}
-		startPlot();
+		resetPlot();
 	});
 
 	//YInit
@@ -363,8 +376,7 @@ void App::initEquationsTab() {
 	y_value->setValue(0);
 	y_value->ifValueChanged([&]()
 	{
-		stopPlot();
-		startPlot();
+		resetPlot();
 	});
 	
 	//Y expression
@@ -382,7 +394,7 @@ void App::initEquationsTab() {
 		{
 			param_lab->show();
 		}
-		startPlot();
+		resetPlot();
 	});
 
 	param_lab = new Text(g_font, sf::String(L"Параметры"), 16, sf::Vector2f(0, y_eq->pos().y + y_eq->size().y + 16));
@@ -394,12 +406,12 @@ void App::initEquationsTab() {
 	Slider samp(Vector2d(-10, 10), sf::Vector2f(), 100);
     samp.ifValueChanged([&]()
     {
-		stopPlot(); startPlot();
+		resetPlot();
     });
 	
 	samp.ifSliderMoved([&]()
 	{
-		stopPlot(); startPlot();
+		resetPlot();
 	});
 
     x_eq_vars->setSample(samp);
@@ -524,8 +536,7 @@ void App::loop() {
 				}
             	else if (event.key.code == sf::Keyboard::Key::F5)
 				{
-					stopPlot();
-					startPlot();
+					resetPlot();
 				}
 				else if (event.key.code == sf::Keyboard::Key::F11)
 				{
@@ -572,6 +583,8 @@ void App::loop() {
                 window.close();
             else if (event.type == sf::Event::Resized) {
                 window.setView(sf::View(sf::FloatRect(0.0, 0.0, (float)event.size.width, (float)event.size.height)));
+				graph->setSize((float)event.size.width, (float)event.size.height);
+				graph->setCentrePosition((float)event.size.width / 2, (float)event.size.height / 2);
             }
 		
             ribbon.check(event, window);

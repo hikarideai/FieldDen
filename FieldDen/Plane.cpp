@@ -20,11 +20,15 @@ void Plane::push(sf::Vector2f vert)
 
 void Plane::clear()
 {
+	push_mutex_.lock();
+	
 	vertices_array_.clear();
 	vertices_.clear();
 	fragments_.clear();
 	max_density = 0;
 	need_update_ = true;
+
+	push_mutex_.unlock();
 }
 
 void Plane::setStartColor(HSLColor color)

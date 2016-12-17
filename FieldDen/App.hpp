@@ -108,8 +108,9 @@ private:
     double width = 640, height = 480;
     Plane *graph;
 	std::recursive_mutex plot_mute;
-	bool stop_plotting = true, is_plotting = false;
-	void plot(); void startPlot(); void stopPlot();
+	bool stop_plot_ = true, reset_plot_ = true, is_plotting = false;
+	void plot(); void resetPlot(); void stopPlot();
+	bool checkEquations();
 
 	std::thread plotter;
 };
