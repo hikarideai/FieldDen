@@ -1,0 +1,6 @@
+r*cos(t*b)
+r*sin(x*b)
+x+a*cos(b*x*y*y)
+y+a*sin(b*y*x*x)
+cos(t)+a*sin(b*t)
+r*(sin(t)+sqrt(abs(cos(t)))+a*cos(b*t))

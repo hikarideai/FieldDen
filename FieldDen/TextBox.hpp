@@ -31,6 +31,7 @@ public:
     void setContent(std::string new_cont) {
         content_ = new_cont;
         updateText();
+		txi();
     }
 
     //Events

@@ -12,34 +12,7 @@
 #define MOUSE_WHEEL_ZOOM 0.1
 
 App::App() {
-    settings.antialiasingLevel = 0;
-
-    window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
-    window.setFramerateLimit(60);
-
-	sf::Image icon;
-	icon.loadFromFile("icon.png");
-
-	window.setIcon(256, 256, icon.getPixelsPtr());
-		
-	graph = new Plane();
-	graph->clear();
-	graph->setPosition(0, 0);
-	graph->setSize(width, height);
-	graph->setCentrePosition(width / 2, height / 2);
-
-    if (!g_small_font.loadFromFile("Arial-Narrow.ttf"))
-        std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
-
-	if (!g_font.loadFromFile("Arial.ttf"))
-		std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
-
-	initRibbon();
-    initGeneralTab();
-	initColorTab();
-	initEquationsTab();    
-
-	graph->setTransparency(255);
+	initialize();
 }
 
 void App::plot() {
@@ -227,7 +200,7 @@ void App::initColorTab()
 		graph->startColour().hue = int(ch1->getValue());
 		graph->update();
 	});
-	ch1->setValue(100);
+	ch1->setValue(190);
 	
 	//Color 1 SATURATION
 	cs1 = new Slider(Vector2d(0, 100), sf::Vector2f(0, ch1->pos().y + ch1->size().y + 4));
@@ -272,7 +245,7 @@ void App::initColorTab()
 		graph->endColour().hue = int(ch2->getValue());
 		graph->update();
 	});
-	ch2->setValue(200);
+	ch2->setValue(250);
 
 	//Color 2 SATURATION
 	cs2 = new Slider(Vector2d(0, 100), sf::Vector2f(color2->pos().x, ch2->pos().y + ch2->size().y + 4));
@@ -470,27 +443,52 @@ void App::initRibbon() {
 }
 
 void App::initialize() {
-    settings.antialiasingLevel = 0;
+	std::ifstream history_file;
+	history_file.open("history");
 
-    window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
+	if (history_file.good())
+		std::cout << "Opened history successfuly.\n";
+	else
+		std::cout << "History openning error.\n";
+
+	while (!history_file.eof()) {
+		std::string entry1, entry2;
+		history_file >> entry1 >> entry2;
+		//std::getline(history_file, entry1);
+		//std::getline(history_file, entry2);
+		history.push_back({ entry1, entry2 });
+		std::cout << entry1 << '\n' << entry2 << '\n';
+	}
+	history_file.close();
+	history_index = -1;
+	
+	settings.antialiasingLevel = 0;
+	window.create(sf::VideoMode(width, height), "FieldDen", sf::Style::Default, settings);
 	window.setFramerateLimit(60);
 
-    initGeneralTab();
-    initEquationsTab();
-	initColorTab();
-	initRibbon();
-	
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+
+	window.setIcon(256, 256, icon.getPixelsPtr());
+
+	graph = new Plane();
 	graph->clear();
 	graph->setPosition(0, 0);
 	graph->setSize(width, height);
 	graph->setCentrePosition(width / 2, height / 2);
-	/*
-    test.init(sf::Vector2f(50, 50));
-    test.add("a", new Slider(sf::Vector2f(50, 50), Vector2d(-10, 10), 100, new TextBox(g_font, sf::Vector2f(0, 0))), g_font);
-    test.add("b", new Slider(sf::Vector2f(50, 50), Vector2d(-10, 10), 100, new TextBox(g_font, sf::Vector2f(0, 0))), g_font);*/
 
-    //Drawing
-    
+	if (!g_small_font.loadFromFile("Arial-Narrow.ttf"))
+		std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
+
+	if (!g_font.loadFromFile("Arial.ttf"))
+		std::cout << "ERROR: Cannot load font UbuntuMono.ttf\n";
+
+	initRibbon();
+	initGeneralTab();
+	initColorTab();
+	initEquationsTab();
+
+	graph->setTransparency(255);
 }
 
 void App::run() {
@@ -499,7 +497,7 @@ void App::run() {
 }
 
 void App::loop() {
-	bool lap = false, rap = false, uap = false, dap = false;
+	bool sbp = false, lap = false, rap = false, uap = false, dap = false;
 
     sf::Event event;
     while (window.isOpen()) {
@@ -528,11 +526,53 @@ void App::loop() {
 				}
 				else if (event.key.code == sf::Keyboard::Up)
 				{
-					uap = true;
+					if (sbp) {
+						if (history_index > -1) {
+							history_index--;
+							if (history_index == -1) {
+								x_eq->setContent("");
+								y_eq->setContent("");
+							}
+							else {
+								x_eq->setContent(history[history_index].first);
+								y_eq->setContent(history[history_index].second);
+							}
+						}
+						else {
+							x_eq->setContent("");
+							y_eq->setContent("");
+						}
+					}
+					else
+						uap = true;
 				}
 				else if (event.key.code == sf::Keyboard::Down)
 				{
-					dap = true;
+					if (sbp) {
+						std::cout << "SHIFT+DARROW pressed\n";
+						if (history_index < int(history.size())) {
+							std::cout << "history_index = " << history_index << " < " << history.size() << '\n';
+							history_index++;
+							if (history_index == history.size()) {
+								x_eq->setContent("");
+								y_eq->setContent("");
+							}
+							else {
+								x_eq->setContent(history[history_index].first);
+								y_eq->setContent(history[history_index].second);
+							}
+						}
+						else {
+							x_eq->setContent("");
+							y_eq->setContent("");
+						}
+					}
+					else
+						dap = true;
+				}
+				else if (event.key.code == sf::Keyboard::LShift)
+				{
+					sbp = true;
 				}
             	else if (event.key.code == sf::Keyboard::Key::F5)
 				{
@@ -577,6 +617,10 @@ void App::loop() {
 				else if (event.key.code == sf::Keyboard::Down)
 				{
 					dap = false;
+				}
+				else if (event.key.code == sf::Keyboard::LShift)
+				{
+					sbp = false;
 				}
 			}
             else if (event.type == sf::Event::Closed)
